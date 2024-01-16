@@ -60,17 +60,3 @@ export const userLogin = async (req, res) => {
 
 }
 
-// export const userLogout = (req, res) => {
-
-
-//     res.status(201).cookie("token", "", { httpOnly: true, expires: new Date(Date.now()) })
-//         .json({
-//             success: true,
-//             message: "Logout successfully",
-//             user: req.user,
-//             sameSite: process.env.NODE_ENV === "Developoment" ? "lax" : "none",
-//             secure: process.env.NODE_ENV === "Developoment" ? "false" : "true",
-//         })
-
-// }
-

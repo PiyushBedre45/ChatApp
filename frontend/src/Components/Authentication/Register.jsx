@@ -8,6 +8,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const handleOnSubmit = async (e) => {
     e.preventDefault();
+    console.log(name, email, password);
     try {
       const { data } = await axios.post(
         `${server}/register`,
@@ -23,8 +24,7 @@ const Register = () => {
           withCredentials: true,
         }
       );
-      toast.success(data.message);
-      navigate("/login");
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -32,7 +32,6 @@ const Register = () => {
   return (
     <>
       <div>
-        <h1>dhsfjhsd</h1>
         <form onSubmit={handleOnSubmit}>
           <input
             type="text"
