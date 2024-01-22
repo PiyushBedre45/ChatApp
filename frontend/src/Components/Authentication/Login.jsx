@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { server } from "../..";
+import { Link } from "react-router-dom";
 
 const Login = () => {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    console.log(name, email, password);
+    console.log(email, password);
     try {
       const { data } = await axios.post(
         `${server}/login`,
@@ -30,36 +30,48 @@ const Login = () => {
   };
   return (
     <>
-      <div className="border-2 border-white  w-full h-[100vh] flex items-center justify-center ">
-        <div className=" bg-[#FBF9F1] w-[70%] h-[80%] flex   ">
+      <div className=" w-full h-[100vh] flex items-center justify-center ">
+        <div className=" bg-[#FBF9F1] w-[70%] h-[80%] flex  rounded-md shadow-2xl">
           <form
             onSubmit={handleOnSubmit}
             className="  bg-[#FBF9F1] h-[100%] w-full flex flex-col gap-4 "
           >
-            <div className="border-2 border-white  w-[90%] mx-auto flex flex-col gap-4 mt-[50px]">
+            <div className="  w-[90%] mx-auto flex flex-col gap-4 mt-[50px]">
               <h1 className=" text-4xl font-semibold">Login</h1>
               <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
             </div>
-            <div className=" border-2 border-white  w-[90%] h-[40%] mx-auto flex flex-col gap-4 justify-center items-center">
-              <input
-                className=" w-[80%] h-[38px] border-2 p-4  border-[#gdfgg] rounded-sm"
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <input
-                className=" w-[80%] h-[38px] border-2 p-4 border-[#gdfgg] rounded-sm"
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <button className=" border-2 border-white w-[80%] h-[38px] rounded-md bg-[#b1e9f2]">
+            <div className="   w-[90%] h-[50%] mx-auto flex flex-col gap-4 justify-center ">
+              <div className="flex flex-col gap-2">
+                <h1>Email</h1>
+                <input
+                  className=" w-[85%] h-[38px] border-2 p-4  border-[#gdfgg] rounded-sm"
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <h1>Password</h1>
+                <input
+                  className=" w-[85%] h-[38px] border-2 p-4 border-[#gdfgg] rounded-sm"
+                  type="password"
+                  name="password"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <button className=" border-2 border-white w-[85%] h-[38px] rounded-md bg-[#b1e9f2]">
                 submit
               </button>
+              <h1>
+                You dont have an Account ?
+                <Link to={"/register"}>
+                  <span className="text-[#4e41ff]"> Sign in</span>
+                </Link>
+              </h1>
             </div>
           </form>
           <div className="border-2 border-white w-full mx-auto h-[100%] flex flex-col gap-4 items-center justify-center">

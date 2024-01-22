@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Register from './Components/Authentication/Register.jsx'
 import Avatar from './Components/Avatar.jsx';
 import Login from './Components/Authentication/Login.jsx';
+import { Toaster } from 'react-hot-toast'
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
             </>} />
 
         </Routes>
+        <Toaster />
       </BrowserRouter>
     </>
   );

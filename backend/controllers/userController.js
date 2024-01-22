@@ -13,7 +13,7 @@ export const userRegister = async (req, res) => {
     if (user) {
 
         res.status(201).json({
-            success: true,
+            success: false,
             message: "User Already Exist",
             user,
         })
@@ -59,4 +59,6 @@ export const userLogin = async (req, res) => {
 
 
 }
+
+
 

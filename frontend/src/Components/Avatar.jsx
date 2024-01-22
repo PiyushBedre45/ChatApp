@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Buffer } from "buffer";
+import { Link } from "react-router-dom";
 
 const Avatar = () => {
   const [avatars, setAvatar] = useState([]);
   const [selectAvatar, setSelectAvatar] = useState(undefined);
-  const setProfilePicture = async () => {
+
+  const setProfilePicture = () => {
+    console.log("hi");
+  };
+
+  const setAvatarPicture = async () => {
     const data = [];
     for (let i = 0; i < 4; i++) {
       const response = await axios.get(
@@ -20,7 +26,7 @@ const Avatar = () => {
     console.log(data);
   };
   useEffect(() => {
-    setProfilePicture();
+    setAvatarPicture();
   }, []);
 
   return (
@@ -38,7 +44,10 @@ const Avatar = () => {
           <div className="w-[40%] ">
             <div className="  flex items-center justify-between">
               {avatars.map((avatar, index) => (
-                <div key={index._id}>
+                <div
+                  key={index._id}
+                  className="flex items-center justify-center"
+                >
                   {/* this is where you select the avatar */}
                   <div
                     className={`${
@@ -53,7 +62,6 @@ const Avatar = () => {
                       alt=""
                       onClick={() => setSelectAvatar(index)}
                     />
-                    {console.log(selectAvatar)}
                   </div>
                 </div>
               ))}
@@ -63,7 +71,10 @@ const Avatar = () => {
 
         {/* Button To Set Avatar */}
         <div className="w-[80%] mx-auto flex items-center justify-center mt-[40px]">
-          <button className="bg-[#b984ee] rounded-md h-[50px] w-[250px] font-semibold text-xl text-white">
+          <button
+            className="bg-[#b984ee] rounded-md h-[50px] w-[250px] font-semibold text-xl text-white"
+            onClick={() => setProfilePicture()}
+          >
             SET AVATAR
           </button>
         </div>
