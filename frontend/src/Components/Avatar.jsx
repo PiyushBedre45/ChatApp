@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Buffer } from "buffer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { server } from "..";
+import toast from "react-hot-toast";
+import { useAuthenticate } from "../context/authenticate";
 
 const Avatar = () => {
+  const navigate = useNavigate();
   const [avatars, setAvatar] = useState([]);
   const [selectAvatar, setSelectAvatar] = useState(undefined);
-
-  const setProfilePicture = () => {
-    console.log("hi");
-  };
-
+  const [isAuthenticate, setIsAuthenticate] = useAuthenticate();
+  console.log(isAuthenticate);
   const setAvatarPicture = async () => {
     const data = [];
     for (let i = 0; i < 4; i++) {
@@ -24,6 +25,33 @@ const Avatar = () => {
     }
     setAvatar(data);
     console.log(data);
+  };
+
+  // useEffect(() => {
+  //   if (!localStorage.getItem("chat-app-user")) {
+  //     navigate("/login");
+  //   }
+  // }, []);
+
+  const setProfilePicture = async () => {
+    if (selectAvatar === undefined) {
+      toast.error("plz select the avatar");
+    } else {
+      console.log("hi");
+      const user = await JSON.parse(localStorage.getItem("chat-app-user"));
+      console.log("user:", user);
+      const { data } = await axios.post(`${server}/setAvatar/${user._id}`, {
+        image: avatars[selectAvatar],
+      });
+      if (data.isSet) {
+        user.isAvatarImageSet = true;
+        user.avatarImage = data.image;
+        localStorage.setItem("chat-app-user", JSON.stringify(user));
+      } else {
+        toast.error(" error in avatar setting");
+      }
+      console.log("data:", data);
+    }
   };
   useEffect(() => {
     setAvatarPicture();
@@ -62,6 +90,7 @@ const Avatar = () => {
                       alt=""
                       onClick={() => setSelectAvatar(index)}
                     />
+                    {console.log(`data:image/svg+xml;base64,${avatar}`)}
                   </div>
                 </div>
               ))}

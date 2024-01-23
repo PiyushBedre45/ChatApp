@@ -16,6 +16,14 @@ const userSchema = new mongoose.Schema({
         required: true,
         select: false,
     },
+    isAvatarImageSet: {
+        type: Boolean,
+        default: false
+    },
+    avatarImage: {
+        type: String,
+        default: ""
+    },
     createdAt: {
         type: Date,
         default: Date.now,

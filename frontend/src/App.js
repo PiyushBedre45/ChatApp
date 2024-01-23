@@ -31,6 +31,7 @@ function App() {
               <Avatar />
             </>} />
 
+
         </Routes>
         <Toaster />
       </BrowserRouter>

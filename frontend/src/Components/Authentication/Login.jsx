@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { server } from "../..";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuthenticate } from "../../context/authenticate";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isAuthenticate, setIsAuthenticate] = useAuthenticate();
+  const navigate = useNavigate();
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     console.log(email, password);
@@ -23,11 +26,15 @@ const Login = () => {
           withCredentials: true,
         }
       );
+      setIsAuthenticate(true);
       console.log(data);
     } catch (error) {
       console.log(error);
     }
   };
+  if (isAuthenticate) {
+    return navigate("/avatar");
+  }
   return (
     <>
       <div className=" w-full h-[100vh] flex items-center justify-center ">

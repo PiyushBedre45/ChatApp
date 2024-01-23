@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { server } from "../..";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useAuthenticate } from "../../context/authenticate";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -37,6 +38,7 @@ const Register = () => {
       console.log(error);
     }
   };
+
   return (
     <>
       <div className=" w-full h-[100vh] flex items-center justify-center ">
