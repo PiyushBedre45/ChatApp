@@ -3,6 +3,7 @@ import Register from './Components/Authentication/Register.jsx'
 import Avatar from './Components/Avatar.jsx';
 import Login from './Components/Authentication/Login.jsx';
 import { Toaster } from 'react-hot-toast'
+import ProfilePic from './Components/ProfilePic.jsx';
 
 
 function App() {
@@ -29,6 +30,11 @@ function App() {
           <Route path='/avatar' element={
             <>
               <Avatar />
+            </>} />
+
+          <Route path='/pro' element={
+            <>
+              <ProfilePic />
             </>} />
 
 

@@ -5,12 +5,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { server } from "..";
 import toast from "react-hot-toast";
 import { useAuthenticate } from "../context/authenticate";
+import { usePic } from "../context/profileImg";
 
 const Avatar = () => {
   const navigate = useNavigate();
   const [avatars, setAvatar] = useState([]);
   const [selectAvatar, setSelectAvatar] = useState(undefined);
   const [isAuthenticate, setIsAuthenticate] = useAuthenticate();
+  const [profilePic, setProfilePic] = usePic([]);
+
   console.log(isAuthenticate);
   const setAvatarPicture = async () => {
     const data = [];
@@ -90,10 +93,20 @@ const Avatar = () => {
                       alt=""
                       onClick={() => setSelectAvatar(index)}
                     />
-                    {console.log(`data:image/svg+xml;base64,${avatar}`)}
+                    {console.log("clg:", avatars[selectAvatar])}
                   </div>
                 </div>
               ))}
+              <Link to={"/pro"}>
+                <button
+                  onClick={() => {
+                    setProfilePic([...profilePic, avatars[selectAvatar]]);
+                    console.log("hoooo");
+                  }}
+                >
+                  setting image
+                </button>
+              </Link>
             </div>
           </div>
         </div>
