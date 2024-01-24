@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useInsertionEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 const Chat = () => {
@@ -21,6 +22,12 @@ const Chat = () => {
     if (currentUser) {
       if (currentUser.isAvatarImageSet) {
         console.log("yeppp");
+        const response = await axios.get(
+          `http://localhost:3000/getallusers/${currentUser._id}`
+        );
+        console.log(response.data.user);
+      } else {
+        navigate("/avatar");
       }
     }
   };
