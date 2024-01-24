@@ -5,14 +5,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { server } from "..";
 import toast from "react-hot-toast";
 import { useAuthenticate } from "../context/authenticate";
-import { usePic } from "../context/profileImg";
+// import { usePic } from "../context/profileImg";
 
 const Avatar = () => {
   const navigate = useNavigate();
   const [avatars, setAvatar] = useState([]);
   const [selectAvatar, setSelectAvatar] = useState(undefined);
   const [isAuthenticate, setIsAuthenticate] = useAuthenticate();
-  const [profilePic, setProfilePic] = usePic([]);
+  // const [profilePic, setProfilePic] = usePic([]);
 
   console.log(isAuthenticate);
   const setAvatarPicture = async () => {
@@ -46,10 +46,12 @@ const Avatar = () => {
       const { data } = await axios.post(`${server}/setAvatar/${user._id}`, {
         image: avatars[selectAvatar],
       });
+
       if (data.isSet) {
         user.isAvatarImageSet = true;
         user.avatarImage = data.image;
         localStorage.setItem("chat-app-user", JSON.stringify(user));
+        navigate("/chat");
       } else {
         toast.error(" error in avatar setting");
       }
@@ -97,7 +99,7 @@ const Avatar = () => {
                   </div>
                 </div>
               ))}
-              <Link to={"/pro"}>
+              {/* <Link to={"/pro"}>
                 <button
                   onClick={() => {
                     setProfilePic([...profilePic, avatars[selectAvatar]]);
@@ -106,7 +108,7 @@ const Avatar = () => {
                 >
                   setting image
                 </button>
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>

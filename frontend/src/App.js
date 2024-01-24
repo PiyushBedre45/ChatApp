@@ -4,6 +4,7 @@ import Avatar from './Components/Avatar.jsx';
 import Login from './Components/Authentication/Login.jsx';
 import { Toaster } from 'react-hot-toast'
 import ProfilePic from './Components/ProfilePic.jsx';
+import Chat from './Components/Chat.jsx';
 
 
 function App() {
@@ -32,6 +33,13 @@ function App() {
               <Avatar />
             </>} />
 
+          {/* Chat Route*/}
+          <Route path='/chat' element={
+            <>
+              <Chat />
+            </>} />
+
+          {/* not imp */}
           <Route path='/pro' element={
             <>
               <ProfilePic />

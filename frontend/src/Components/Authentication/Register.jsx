@@ -9,6 +9,7 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     console.log(name, email, password);
@@ -33,6 +34,7 @@ const Register = () => {
       }
       if (data.success === true) {
         localStorage.setItem("chat-app-user", JSON.stringify(data.user));
+        navigate("/avatar");
       }
     } catch (error) {
       console.log(error);
