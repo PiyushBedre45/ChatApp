@@ -78,14 +78,19 @@ export const setAvatar = async (req, res, next) => {
 
 export const getUesr = async (req, res, next) => {
     try {
-        const user = await User.findById(req.params.id)
+        const user = await User.find({ _id: { $ne: req.params.id } }).select([
+            "email",
+            "name",
+            "avatarImage",
+            "_id"
+        ])
 
-        if (!user) {
-            res.json({
-                success: false,
-                message: "User not found",
-            })
-        }
+        // if (!user) {
+        //     res.json({
+        //         success: false,
+        //         message: "User not found",
+        //     })
+        // }
         res.json({
             success: true,
             message: "Get all users",
