@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Contact from "./Contact";
+import ChatHeader from "./ChatHeader";
 const Chat = () => {
   const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
@@ -41,9 +42,11 @@ const Chat = () => {
   return (
     <>
       <div className=" w-full h-[100vh] flex items-center  ">
-        <div className=" w-[85%] mx-auto h-[90%] flex ">
-          <Contact contacts={contacts} />
-          <div className="w-full bg-[#FCF5ED]">hi piyush</div>
+        <div className=" w-[85%] mx-auto h-[90%] flex">
+          <div className="w-[50%] bg-[#e5b49c] rounded-l-md p-4  overflow-y-auto overflow-x-hidden scroll-smooth scrollbar-hide">
+            <Contact contacts={contacts} />
+          </div>
+          <div className="w-full bg-[#FCF5ED] rounded-r-md">hi piyush</div>
         </div>
       </div>
     </>
