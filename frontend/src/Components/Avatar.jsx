@@ -85,7 +85,7 @@ const Avatar = () => {
                   <div
                     className={`${
                       selectAvatar === index
-                        ? "border-solid border-[#6d4cb0] border-[4px] p-1 rounded-[60px] flex w-[100px]"
+                        ? "border-solid border-[#b1e9f2] border-[4px] p-1 rounded-[60px] flex w-[100px]"
                         : " p-1 rounded-[60px] flex w-[100px]"
                     }`}
                   >
@@ -116,7 +116,7 @@ const Avatar = () => {
         {/* Button To Set Avatar */}
         <div className="w-[80%] mx-auto flex items-center justify-center mt-[40px]">
           <button
-            className="bg-[#b984ee] rounded-md h-[50px] w-[250px] font-semibold text-xl text-white"
+            className="bg-[#3bb3c5] rounded-md h-[50px] w-[250px] font-semibold text-xl text-white"
             onClick={() => setProfilePicture()}
           >
             SET AVATAR
