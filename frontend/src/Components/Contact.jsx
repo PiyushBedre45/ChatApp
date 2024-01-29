@@ -7,9 +7,7 @@ const Contact = ({ contacts, changeChat }) => {
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);
     changeChat(contact);
-    console.log(contact);
   };
-  console.log("selected chat no :", currentSelected);
 
   return (
     <>
@@ -18,7 +16,11 @@ const Contact = ({ contacts, changeChat }) => {
           {contacts.map((contact, index) => (
             <div key={contact._id}>
               <div
-                className={`flex items-center border-2 border-[#656565] w-[100%] h-[70px] mx-auto bg-[#FCF5ED] rounded-md`}
+                className={`${
+                  currentSelected === index
+                    ? "flex items-center border-2 border-[#656565] w-[100%] h-[70px] mx-auto bg-[#70ebf9] rounded-md"
+                    : "flex items-center border-2 border-[#656565] w-[100%] h-[70px] mx-auto bg-[#FCF5ED] rounded-md"
+                }`}
                 onClick={() => changeCurrentChat(index, contact)}
               >
                 <div className="flex w-[95%] mx-auto gap-4">

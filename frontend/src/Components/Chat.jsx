@@ -3,11 +3,16 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Contact from "./Contact";
 import ChatHeader from "./ChatHeader";
+import robot from "../assets/robot.gif";
+import Welcome from "./Welcome";
+import ChatContainer from "./ChatContainer";
+
 const Chat = () => {
   const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
   const [currentUser, setCurrentUser] = useState(undefined);
   const [currentChat, setCurrentChat] = useState(undefined);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const isUserPresent = async () => {
     if (!localStorage.getItem("chat-app-user")) {
@@ -15,6 +20,7 @@ const Chat = () => {
     } else {
       setCurrentUser(await JSON.parse(localStorage.getItem("chat-app-user")));
       console.log(currentUser);
+      setIsLoaded(true);
     }
   };
 
@@ -25,11 +31,9 @@ const Chat = () => {
   const getUser = async () => {
     if (currentUser) {
       if (currentUser.isAvatarImageSet) {
-        console.log("yeppp");
         const response = await axios.get(
           `http://localhost:3000/getallusers/${currentUser._id}`
         );
-        console.log(response.data.user);
         setContacts(response.data.user);
       } else {
         navigate("/avatar");
@@ -59,7 +63,13 @@ const Chat = () => {
             <hr className="border-black w-full" />
             <Contact contacts={contacts} changeChat={handleChatChange} />
           </div>
-          <div className="w-full bg-[#FCF5ED] rounded-r-md">hi piyush</div>
+          <div className="w-full bg-[#FCF5ED] rounded-r-md ">
+            {isLoaded && currentChat === undefined ? (
+              <Welcome currentUser={currentUser} />
+            ) : (
+              <ChatContainer currentUser={currentUser} />
+            )}
+          </div>
         </div>
       </div>
     </>
