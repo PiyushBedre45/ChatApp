@@ -7,6 +7,7 @@ import { PicProvider } from './context/profileImg';
 export const server = "http://localhost:3000";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+document.body.classList.add("overflow-y-hidden");
 root.render(
   <React.StrictMode>
 
