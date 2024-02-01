@@ -3,20 +3,35 @@ import { IoMdSend } from "react-icons/io";
 import { BsEmojiSmile } from "react-icons/bs";
 import Picker from "emoji-picker-react";
 
-function ChatInput() {
+function ChatInput({ handleSendMsg }) {
   const [showEmojipicker, setShowEmojiPicker] = useState(false);
   const [msg, setMsg] = useState("");
 
   const handleEmojiPickerHideShow = () => {
     setShowEmojiPicker(!showEmojipicker);
   };
+
+  const handleEmojiClick = (event, emoji) => {
+    let message = msg;
+    message = message + event.emoji; // message = message  + emoji.emoji
+    setMsg(message);
+  };
+
+  const sendChat = (event) => {
+    event.preventDefault();
+    if (msg.length > 0) {
+      handleSendMsg(msg);
+      setMsg("");
+    }
+  };
+
   return (
     <>
       <div
         id="emojiBox"
         className="border-2 border-red-500  w-[1px] h-[400px] absolute bottom-[150px] "
       >
-        {showEmojipicker && <Picker className="w-[300px] h-[400px]" />}
+        {showEmojipicker && <Picker onEmojiClick={handleEmojiClick} />}
       </div>
       <div className="border-2 border-black w-full h-[50px] flex items-center justify-center ">
         <div className="border-2 border-red-500  w-[95%] h-[85%] mx-auto flex items-center">
@@ -26,14 +41,20 @@ function ChatInput() {
               onClick={handleEmojiPickerHideShow}
             />
           </button>
-          <input
-            className="w-[85%] h-[90%] pl-[15px] "
-            type="text"
-            placeholder="Enter the message here"
-          />
-          <button className="border-2 text-white border-red-500 bg-[#f8919d] w-[10%] h-[90%] flex items-center justify-center">
-            <IoMdSend className="text-2xl" />
-          </button>
+          <form className="w-[85%] h-[90%]" onSubmit={(e) => sendChat(e)}>
+            <input
+              className="w-full h-full pl-[15px]"
+              type="text"
+              placeholder="Enter the message here"
+              value={msg}
+              onChange={(e) => setMsg(e.target.value)}
+            />
+          </form>
+          <div className="border-2 text-white border-red-500 bg-[#f8919d] w-[10%] h-[90%] flex items-center justify-center">
+            <button className="submit">
+              <IoMdSend className="text-2xl" />
+            </button>
+          </div>
         </div>
       </div>
     </>

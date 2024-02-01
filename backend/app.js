@@ -1,6 +1,7 @@
 import express from 'express';
 import { config } from 'dotenv';
 import userRouter from './router/userRouter.js'
+import messagesRouter from './router/messagesRouter.js'
 import cookieParser from 'cookie-parser';
 import cors from 'cors'
 
@@ -24,6 +25,7 @@ app.use(cors({
 app.use(cookieParser());
 
 app.use(userRouter)
+app.use(messagesRouter)
 
 app.get('/', (req, res) => {
     res.send("Hi from /")
