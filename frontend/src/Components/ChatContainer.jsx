@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import ChatInput from "./ChatInput";
 import Messages from "./Messages";
 import axios from "axios";
 
 const ChatContainer = ({ currentChat, currentUser }) => {
+  const [getMsg, setGetMsg] = useState("");
   console.log(currentChat);
   console.log(currentUser);
 
   const handleSendMsg = async (msg) => {
-    await axios.post("http://localhost:3000/addmsg", {
+    const response = await axios.post("http://localhost:3000/addmsg", {
       from: currentUser._id,
       to: currentChat._id,
       message: msg,
     });
+    setGetMsg(response.data.message);
   };
 
   return (
@@ -28,7 +30,7 @@ const ChatContainer = ({ currentChat, currentUser }) => {
             <h1>{currentChat.name}</h1>
           </div>
           <hr className="border-[#c5c5c5] mt-[10px]" />
-          <Messages />
+          <Messages getMsg={getMsg} />
           <ChatInput handleSendMsg={handleSendMsg} />
         </div>
       )}

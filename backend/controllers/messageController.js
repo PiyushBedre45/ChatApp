@@ -10,7 +10,8 @@ export const addMessage = async (req, res, next) => {
         })
 
         if (data) return res.json({
-            msg: "message added successfully"
+            msg: "message added successfully",
+            message,
         })
         return res.json({
             msg: "message not added into the database"
@@ -20,10 +21,27 @@ export const addMessage = async (req, res, next) => {
 
     }
 }
-export const getMessage = (req, res, next) => {
+
+
+export const getMessage = async (req, res, next) => {
+    const { from, to } = req.body;
+    const messages = await Message.find({
+        users: {
+            $all: [from, to]
+        }
+    }).sort({ updatedAt: 1 });
+
+    const projectedMessages = messages.map((msg) => {
+        return {
+            fromSelf: msg.sender.toString() === from,
+            message: msg.message.text
+        };
+    });
     res.json({
         success: true,
-        msg: "we get the message"
-    })
+        msg: "we get the message",
+        messages,
+        projectedMessages,
+    });
 
 }

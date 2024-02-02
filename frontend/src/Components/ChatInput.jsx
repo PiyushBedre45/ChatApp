@@ -29,13 +29,13 @@ function ChatInput({ handleSendMsg }) {
     <>
       <div
         id="emojiBox"
-        className="border-2 border-red-500  w-[1px] h-[400px] absolute bottom-[150px] "
+        className="  w-[1px] h-[400px] absolute bottom-[150px] "
       >
         {showEmojipicker && <Picker onEmojiClick={handleEmojiClick} />}
       </div>
-      <div className="border-2 border-black w-full h-[50px] flex items-center justify-center ">
-        <div className="border-2 border-red-500  w-[95%] h-[85%] mx-auto flex items-center">
-          <button className="border-2  border-red-500 h-[90%] w-[5%] flex items-center justify-center ">
+      <div className="w-full h-[50px] flex items-center justify-center ">
+        <div className="  w-[95%] h-[85%] mx-auto flex items-center">
+          <button className="  h-[90%] w-[5%] flex items-center justify-center ">
             <BsEmojiSmile
               className="text-2xl "
               onClick={handleEmojiPickerHideShow}
@@ -50,8 +50,8 @@ function ChatInput({ handleSendMsg }) {
               onChange={(e) => setMsg(e.target.value)}
             />
           </form>
-          <div className="border-2 text-white border-red-500 bg-[#f8919d] w-[10%] h-[90%] flex items-center justify-center">
-            <button className="submit">
+          <div className=" text-white bg-[#f8919d] w-[10%] h-[90%] flex items-center justify-center">
+            <button className="submit" onClick={(e) => sendChat(e)}>
               <IoMdSend className="text-2xl" />
             </button>
           </div>
