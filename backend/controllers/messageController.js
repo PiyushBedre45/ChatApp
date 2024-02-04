@@ -31,10 +31,12 @@ export const getMessage = async (req, res, next) => {
         }
     }).sort({ updatedAt: 1 });
 
+    console.log(messages);
+
     const projectedMessages = messages.map((msg) => {
         return {
             fromSelf: msg.sender.toString() === from,
-            message: msg.message.text
+            message: msg.message.text,
         };
     });
     res.json({

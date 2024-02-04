@@ -1,12 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ChatInput from "./ChatInput";
-import Messages from "./Messages";
 import axios from "axios";
 
 const ChatContainer = ({ currentChat, currentUser }) => {
   const [getMsg, setGetMsg] = useState("");
+  const [getAllMessages, setGetAllMessages] = useState([]);
+
   console.log(currentChat);
   console.log(currentUser);
+
+  const allMessages = async () => {
+    const response = await axios.post("http://localhost:3000/getmsg", {
+      from: currentUser._id,
+      to: currentChat._id,
+    });
+    console.log(response.data);
+    setGetAllMessages(response.data.messages);
+  };
+  useEffect(() => {
+    allMessages();
+  }, [currentChat]);
 
   const handleSendMsg = async (msg) => {
     const response = await axios.post("http://localhost:3000/addmsg", {
@@ -30,7 +43,13 @@ const ChatContainer = ({ currentChat, currentUser }) => {
             <h1>{currentChat.name}</h1>
           </div>
           <hr className="border-[#c5c5c5] mt-[10px]" />
-          <Messages getMsg={getMsg} />
+          <div>
+            {getAllMessages.map((message) => (
+              <div>
+                <p>{message.message.text}</p>
+              </div>
+            ))}
+          </div>
           <ChatInput handleSendMsg={handleSendMsg} />
         </div>
       )}

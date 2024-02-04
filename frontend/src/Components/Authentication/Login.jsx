@@ -3,12 +3,21 @@ import axios from "axios";
 import { server } from "../..";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthenticate } from "../../context/authenticate";
+import toast from "react-hot-toast";
 
 const Login = () => {
+  const [values, setValues] = useState({
+    name: "",
+    email: "",
+    password: "",
+    conformPassword: "",
+  });
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isAuthenticate, setIsAuthenticate] = useAuthenticate();
   const navigate = useNavigate();
+
+  // Handle on Submit
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     console.log(email, password);
@@ -28,6 +37,13 @@ const Login = () => {
       );
       setIsAuthenticate(true);
       console.log(data);
+      if (data.success === false) {
+        toast.success(data.message);
+      }
+      if (data.success === true) {
+        localStorage.setItem("chat-app-user", JSON.stringify(data.user));
+        navigate("/chat");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -35,6 +51,12 @@ const Login = () => {
   if (isAuthenticate) {
     return navigate("/avatar");
   }
+
+  // Handle Change
+  const handleChange = (event) => {
+    setValues({ ...values, [event.target.name]: event.target.value });
+  };
+
   return (
     <>
       <div className=" w-full h-[100vh] flex items-center justify-center ">

@@ -20,6 +20,13 @@ function App() {
               <Register />
             </>} />
 
+          {/*User Register*/}
+
+          <Route path='/userregis' element={
+            <>
+              <Register />
+            </>} />
+
           {/*User Login*/}
 
           <Route path='/login' element={

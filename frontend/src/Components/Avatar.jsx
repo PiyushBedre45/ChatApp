@@ -55,7 +55,7 @@ const Avatar = () => {
       } else {
         toast.error(" error in avatar setting");
       }
-      console.log("data:", data);
+      // console.log("data:", data);
     }
   };
   useEffect(() => {

@@ -4,35 +4,64 @@ import { sendCookie } from "../utils/features.js";
 
 // USER REGISTRATION 
 
-export const userRegister = async (req, res) => {
+export const userRegister = async (req, res, next) => {
+    try {
+        const { name, email, password } = req.body;
+        const checkUser = await User.findOne({ name })
+        if (checkUser) return res.json({
+            status: false,
+            message: "Username allready exist"
+        })
+        const checkEmail = await User.findOne({ email })
+        if (checkEmail) return res.json({
+            status: false,
+            message: "Email allready exist"
+        })
 
-    const { name, email, password } = req.body;
-
-    let user = await User.findOne({ email })
-
-    if (user) {
-
-        res.status(201).json({
-            success: false,
-            message: "User Already Exist",
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = await User.create({
+            name, email, password: hashedPassword
+        })
+        delete user.password;
+        res.json({
+            status: true,
+            message: "User Register Successfully",
             user,
         })
+    } catch (ex) {
+        next(ex);
     }
-
-    const hashedPassword = await bcrypt.hash(password, 10)
-
-    user = await User.create({
-        name, email, password: hashedPassword
-    })
-    // res.status(201).json({
-    //     success: true,
-    //     message: "User Register",
-    //     user
-
-    // })
-
-    sendCookie(user, res, "register sucessfull", 201);
 }
+
+// export const userRegister = async (req, res) => {
+
+//     const { name, email, password } = req.body;
+
+//     let user = await User.findOne({ email })
+
+//     if (user) {
+
+//         res.status(201).json({
+//             success: false,
+//             message: "User Already Exist",
+//             user,
+//         })
+//     }
+
+//     const hashedPassword = await bcrypt.hash(password, 10)
+
+//     user = await User.create({
+//         name, email, password: hashedPassword
+//     })
+//     // res.status(201).json({
+//     //     success: true,
+//     //     message: "User Register",
+//     //     user
+
+//     // })
+
+//     sendCookie(user, res, "register sucessfull", 201);
+// }
 
 // USER LOGIN
 
