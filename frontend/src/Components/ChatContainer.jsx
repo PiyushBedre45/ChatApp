@@ -10,12 +10,14 @@ const ChatContainer = ({ currentChat, currentUser }) => {
   console.log(currentUser);
 
   const allMessages = async () => {
-    const response = await axios.post("http://localhost:3000/getmsg", {
-      from: currentUser._id,
-      to: currentChat._id,
-    });
-    console.log(response.data);
-    setGetAllMessages(response.data.messages);
+    if (currentUser && currentChat) {
+      const response = await axios.post("http://localhost:3000/getmsg", {
+        from: currentUser._id,
+        to: currentChat._id,
+      });
+      console.log(response.data);
+      setGetAllMessages(response.data.messages);
+    }
   };
   useEffect(() => {
     allMessages();

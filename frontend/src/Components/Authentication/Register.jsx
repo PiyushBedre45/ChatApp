@@ -30,11 +30,13 @@ const Register = () => {
       console.log(response.data);
       if (response.data.status === false)
         return toast.error(response.data.message);
-      if (response.data.status === true)
-        return localStorage.setItem(
+      if (response.data.status === true) {
+        localStorage.setItem(
           "chat-app-user",
           JSON.stringify(response.data.user)
         );
+        navigate("/avatar");
+      }
     }
     console.log("hi valifatr");
     // console.log(name, email, password);
@@ -101,11 +103,11 @@ const Register = () => {
             onSubmit={handleOnSubmit}
             className="  bg-[#FBF9F1] h-[100%] w-full flex flex-col gap-4 "
           >
-            <div className="  w-[90%] mx-auto flex flex-col gap-4 mt-[50px]">
+            <div className="  w-[90%] mx-auto flex flex-col gap-2 mt-[40px]">
               <h1 className=" text-4xl font-semibold">Register here</h1>
               <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
             </div>
-            <div className="w-[90%] h-[60%] mx-auto flex flex-col gap-4 justify-center mt-[10px] ">
+            <div className="w-[90%] h-[70%] mx-auto flex flex-col gap-3 justify-center  ">
               <div className="flex flex-col gap-2">
                 <h1>Name</h1>
                 <input

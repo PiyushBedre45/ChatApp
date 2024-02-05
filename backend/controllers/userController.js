@@ -1,6 +1,5 @@
 import bcrypt from 'bcrypt';
 import { User } from "../models/userModel.js";
-import { sendCookie } from "../utils/features.js";
 
 // USER REGISTRATION 
 
@@ -33,60 +32,32 @@ export const userRegister = async (req, res, next) => {
     }
 }
 
-// export const userRegister = async (req, res) => {
-
-//     const { name, email, password } = req.body;
-
-//     let user = await User.findOne({ email })
-
-//     if (user) {
-
-//         res.status(201).json({
-//             success: false,
-//             message: "User Already Exist",
-//             user,
-//         })
-//     }
-
-//     const hashedPassword = await bcrypt.hash(password, 10)
-
-//     user = await User.create({
-//         name, email, password: hashedPassword
-//     })
-//     // res.status(201).json({
-//     //     success: true,
-//     //     message: "User Register",
-//     //     user
-
-//     // })
-
-//     sendCookie(user, res, "register sucessfull", 201);
-// }
-
 // USER LOGIN
 
-export const userLogin = async (req, res) => {
-    const { email, password } = req.body
-    const user = await User.findOne({ email }).select("+password")
-
-    if (!user) {
-        return res.status(500).json({
-            success: false,
-            message: "Invalid Email or Password"
+export const userLogin = async (req, res, next) => {
+    try {
+        const { name, password } = req.body;
+        let user = await User.findOne({ name }).select("+password") /// Important
+        if (!user) return res.json({
+            status: false,
+            message: "Incorrect username or password"
         })
-    }
-
-    const isMatch = await bcrypt.compare(password, user.password)
-
-    if (!isMatch) {
-        return res.status(500).json({
-            success: false,
-            message: 'Invalid Email or Password'
+        const isPasswordValid = await bcrypt.compare(password, user.password)
+        if (!isPasswordValid) return res.json({
+            message: 'Incorrect username or password',
+            status: false
         })
+        delete user.password;
+        return res.json({
+            status: true,
+            user,
+        })
+    } catch (ex) {
+        next(ex);
     }
-    sendCookie(user, res, `Wellcome , ${user.name}`, 202);
 }
 
+// Set Avatar
 
 export const setAvatar = async (req, res, next) => {
     try {
@@ -105,7 +76,9 @@ export const setAvatar = async (req, res, next) => {
     }
 }
 
-export const getUesr = async (req, res, next) => {
+//  Get Users
+
+export const getUser = async (req, res, next) => {
     try {
         const user = await User.find({ _id: { $ne: req.params.id } }).select([
             "email",

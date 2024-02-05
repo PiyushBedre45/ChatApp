@@ -40,7 +40,6 @@ const Avatar = () => {
     if (selectAvatar === undefined) {
       toast.error("plz select the avatar");
     } else {
-      console.log("hi");
       const user = await JSON.parse(localStorage.getItem("chat-app-user"));
       console.log("user:", user);
       const { data } = await axios.post(`${server}/setAvatar/${user._id}`, {
