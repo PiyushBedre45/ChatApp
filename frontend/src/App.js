@@ -5,6 +5,7 @@ import Login from './Components/Authentication/Login.jsx';
 import { Toaster } from 'react-hot-toast'
 import ProfilePic from './Components/ProfilePic.jsx';
 import Chat from './Components/Chat.jsx';
+import Try from './Components/Try.jsx';
 
 
 function App() {
@@ -51,6 +52,12 @@ function App() {
             <>
               <ProfilePic />
             </>} />
+          {/* not imp */}
+          <Route path='/try' element={
+            <>
+              <Try />
+            </>} />
+
 
 
         </Routes>

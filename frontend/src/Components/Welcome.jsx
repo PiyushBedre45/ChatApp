@@ -2,9 +2,6 @@ import React from "react";
 import robot from "../assets/robot.gif";
 
 const Welcome = ({ currentUser }) => {
-  {
-    console.log(currentUser);
-  }
   return (
     <>
       <div className=" w-full h-full flex items-center">

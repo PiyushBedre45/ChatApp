@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Contact from "./Contact";
 import ChatHeader from "./ChatHeader";
-import robot from "../assets/robot.gif";
 import Welcome from "./Welcome";
 import ChatContainer from "./ChatContainer";
 

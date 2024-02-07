@@ -27,11 +27,14 @@ function ChatInput({ handleSendMsg }) {
 
   return (
     <>
-      <div id="emojiBox" className="  w-[1px] h-[400px] ">
+      <div
+        id="emojiBox"
+        className="  w-[1px] h-[420px] absolute bottom-[150px] "
+      >
         {showEmojipicker && <Picker onEmojiClick={handleEmojiClick} />}
       </div>
-      <div className="w-full h-[50px] flex items-center justify-center relative ">
-        <div className="  w-[95%] h-[85%] mx-auto flex items-center absolute ">
+      <div className="w-full h-[50px] flex items-center justify-center ">
+        <div className="  w-[95%] h-[85%] mx-auto flex items-center">
           <button className="  h-[90%] w-[5%] flex items-center justify-center ">
             <BsEmojiSmile
               className="text-2xl "
