@@ -44,19 +44,24 @@ app.get('/', (req, res) => {
 
 })
 
+global.onlineUsers = new Map();
 
 io.on("connection", (socket) => {
-    console.log("user connected")
-    console.log("Id :", socket.id)
-    socket.emit("welcome", `Welcome to the server ${socket.id}`)
-    socket.on("message", ({ room, msg }) => {
-        console.log(room, msg, socket.id)
-        io.to(room).emit('receive-message', msg)
 
+    global.chatSocket = socket;
+    socket.on("add-user", (userId) => {
+        onlineUsers.set(userId, socket.id)
+        console.log("user id is:", userId)
     })
-    socket.on("disconnect", () => {
-        console.log("user disconnect", socket.id)
 
+    socket.on("send-msg", (data) => {
+        const sendUserSocket = onlineUsers.get(data.to)
+        console.log({ data })
+        if (sendUserSocket) {
+            socket.to(sendUserSocket).emit("msg-recieve", data.message)
+
+
+        }
     })
 })
 

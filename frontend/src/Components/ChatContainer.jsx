@@ -1,22 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ChatInput from "./ChatInput";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
-const ChatContainer = ({ currentChat, currentUser }) => {
-  const [getMsg, setGetMsg] = useState("");
-  const [getAllMessages, setGetAllMessages] = useState([]);
+const ChatContainer = ({ currentChat, currentUser, socket }) => {
+  const [messages, setMessages] = useState([]);
+  const [arrivalMsg, setArrivalMsg] = useState(null);
+  const scrollRef = useRef();
 
   console.log(currentChat);
   console.log(currentUser);
+  console.log(socket);
 
   const allMessages = async () => {
-    if (currentUser && currentChat) {
+    if (currentChat) {
       const response = await axios.post("http://localhost:3000/getmsg", {
         from: currentUser._id,
         to: currentChat._id,
       });
-      console.log(response.data.projectedMessages);
-      setGetAllMessages(response.data.projectedMessages);
+      setMessages(response.data.projectedMessages);
     }
   };
   useEffect(() => {
@@ -24,13 +26,41 @@ const ChatContainer = ({ currentChat, currentUser }) => {
   }, [currentChat]);
 
   const handleSendMsg = async (msg) => {
-    const response = await axios.post("http://localhost:3000/addmsg", {
+    await axios.post("http://localhost:3000/addmsg", {
       from: currentUser._id,
       to: currentChat._id,
       message: msg,
     });
-    setGetMsg(response.data.message);
+    socket.current.emit("send-msg", {
+      to: currentChat._id,
+      from: currentUser._id,
+      message: msg,
+    });
+    const msgs = [...messages];
+    console.log(msgs);
+    msgs.push({ fromSelf: true, message: msg });
+    setMessages(msgs);
   };
+
+  useEffect(() => {
+    if (socket.current) {
+      socket.current.on("msg-recieve", (msg) => {
+        console.log({ msg });
+        setArrivalMsg({ fromSelf: false, message: msg });
+      });
+    } else {
+      console.log("socket.current is null or undefined");
+    }
+  }, []);
+  console.log(arrivalMsg);
+
+  useEffect(() => {
+    arrivalMsg && setMessages((perv) => [...perv, arrivalMsg]);
+  }, [arrivalMsg]);
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behaviour: "smooth" });
+  }, [messages]);
 
   return (
     <>
@@ -51,8 +81,10 @@ const ChatContainer = ({ currentChat, currentUser }) => {
           {/* All messages */}
           <div className=" h-[480px] overflow-y-auto overflow-x-hidden scroll-smooth scrollbar-hide">
             <div className=" flex flex-col gap-4 w-[90%]  mx-auto text-xl">
-              {getAllMessages.map((message) => (
+              {messages.map((message) => (
                 <div
+                  ref={scrollRef}
+                  key={uuidv4()}
                   className={`${
                     message.fromSelf
                       ? " flex justify-end "
