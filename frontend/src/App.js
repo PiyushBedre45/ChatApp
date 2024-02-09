@@ -46,20 +46,6 @@ function App() {
             <>
               <Chat />
             </>} />
-
-          {/* not imp */}
-          <Route path='/pro' element={
-            <>
-              <ProfilePic />
-            </>} />
-          {/* not imp */}
-          <Route path='/try' element={
-            <>
-              <Try />
-            </>} />
-
-
-
         </Routes>
         <Toaster />
       </BrowserRouter>
