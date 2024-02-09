@@ -13,7 +13,7 @@ const ChatContainer = ({ currentChat, currentUser, socket }) => {
   console.log(socket);
 
   const allMessages = async () => {
-    if (currentChat) {
+    if (currentChat && currentUser) {
       const response = await axios.post("http://localhost:3000/getmsg", {
         from: currentUser._id,
         to: currentChat._id,
@@ -51,7 +51,7 @@ const ChatContainer = ({ currentChat, currentUser, socket }) => {
     } else {
       console.log("socket.current is null or undefined");
     }
-  }, []);
+  }, [currentChat]);
   console.log(arrivalMsg);
 
   useEffect(() => {
