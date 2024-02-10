@@ -4,13 +4,9 @@
 
 body {
   background-color: #f8919d;
-  /* color: white; */
 }
 
 #selected {
   border: 0.4rem solid #7d6bc1;
 }
-/* .emoji-picker-react {
-  position: absolute;
-  top: -350px;
-} */
+

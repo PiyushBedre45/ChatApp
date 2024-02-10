@@ -12,14 +12,14 @@ const Contact = ({ contacts, changeChat }) => {
   return (
     <>
       <div className=" overflow-y-auto overflow-x-hidden scroll-smooth scrollbar-hide rounded-l-md p-4">
-        <div className=" flex flex-col gap-1">
+        <div className=" flex flex-col gap-1 ">
           {contacts.map((contact, index) => (
             <div key={contact._id}>
               <div
                 className={`${
                   currentSelected === index
                     ? "flex items-center w-[100%] h-[70px] mx-auto bg-[#70ebf9] rounded-md"
-                    : "flex items-center  w-[100%] h-[70px] mx-auto bg-[#FCF5ED] rounded-md"
+                    : "flex items-center  w-[100%] h-[70px] mx-auto bg-[#FCF5ED] rounded-md hover:bg-[#cbf5f8]"
                 }`}
                 onClick={() => changeCurrentChat(index, contact)}
               >

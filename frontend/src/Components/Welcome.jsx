@@ -11,7 +11,7 @@ const Welcome = ({ currentUser }) => {
             Welcome, <span className="text-[#f8919d]">{currentUser.name}!</span>
           </h1>
           <h1 className="text-xl ">
-            Please select the chat you want to Messaging
+            Please select the chat you want to Message
           </h1>
         </div>
       </div>

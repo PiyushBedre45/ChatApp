@@ -38,34 +38,6 @@ const Register = () => {
         navigate("/avatar");
       }
     }
-    console.log("hi valifatr");
-    // console.log(name, email, password);
-    // try {
-    //   const { response } = await axios.post(
-    //     `${server}/register`,
-    //     {
-    //       name,
-    //       email,
-    //       password,
-    //     },
-    //     {
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       withCredentials: true,
-    //     }
-    //   );
-    //   console.log(response);
-    //   if (response.success === false) {
-    //     toast.success(response.message);
-    //   }
-    //   if (response.success === true) {
-    //     localStorage.setItem("chat-app-user", JSON.stringify(response.user));
-    //     navigate("/avatar");
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
   };
 
   // Handle Change

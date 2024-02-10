@@ -3,9 +3,8 @@ import Register from './Components/Authentication/Register.jsx'
 import Avatar from './Components/Avatar.jsx';
 import Login from './Components/Authentication/Login.jsx';
 import { Toaster } from 'react-hot-toast'
-import ProfilePic from './Components/ProfilePic.jsx';
 import Chat from './Components/Chat.jsx';
-import Try from './Components/Try.jsx';
+
 
 
 function App() {
@@ -42,7 +41,7 @@ function App() {
             </>} />
 
           {/* Chat Route*/}
-          <Route path='/chat' element={
+          <Route path='/' element={
             <>
               <Chat />
             </>} />

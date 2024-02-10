@@ -14,7 +14,7 @@ const Login = () => {
 
   useEffect(() => {
     if (localStorage.getItem("chat-app-user")) {
-      navigate("/chat");
+      navigate("/");
     }
   }, []);
 
@@ -36,37 +36,9 @@ const Login = () => {
           "chat-app-user",
           JSON.stringify(response.data.user)
         );
-        navigate("/chat");
+        navigate("/");
       }
     }
-    console.log("hi valifatr");
-    // console.log(name, email, password);
-    // try {
-    //   const { response } = await axios.post(
-    //     `${server}/register`,
-    //     {
-    //       name,
-    //       email,
-    //       password,
-    //     },
-    //     {
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       withCredentials: true,
-    //     }
-    //   );
-    //   console.log(response);
-    //   if (response.success === false) {
-    //     toast.success(response.message);
-    //   }
-    //   if (response.success === true) {
-    //     localStorage.setItem("chat-app-user", JSON.stringify(response.user));
-    //     navigate("/avatar");
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
   };
 
   // Handle Change
@@ -113,16 +85,6 @@ const Login = () => {
                   onChange={(e) => handleChange(e)}
                 />
               </div>
-              {/* <div className="flex flex-col gap-2">
-                <h1>Email</h1>
-                <input
-                  className=" w-[85%] h-[38px] border-2 p-4  border-[#gdfgg] rounded-sm"
-                  type="email"
-                  name="email"
-                  placeholder="Enter your email"
-                  onChange={(e) => handleChange(e)}
-                />
-              </div> */}
               <div className="flex flex-col gap-2">
                 <h1>Password</h1>
                 <input
@@ -133,16 +95,7 @@ const Login = () => {
                   onChange={(e) => handleChange(e)}
                 />
               </div>
-              {/* <div className="flex flex-col gap-2">
-                <h1>ConformPassword</h1>
-                <input
-                  className=" w-[85%] h-[38px] border-2 p-4 border-[#gdfgg] rounded-sm"
-                  type="password"
-                  name="conformPassword"
-                  placeholder="Enter your Conform Password"
-                  onChange={(e) => handleChange(e)}
-                />
-              </div> */}
+
               <button className=" border-2 border-white w-[85%] h-[38px] rounded-md bg-[#b1e9f2]">
                 Login
               </button>

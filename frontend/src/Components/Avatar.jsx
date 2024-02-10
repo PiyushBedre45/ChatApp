@@ -29,13 +29,6 @@ const Avatar = () => {
     setAvatar(data);
     console.log(data);
   };
-
-  // useEffect(() => {
-  //   if (!localStorage.getItem("chat-app-user")) {
-  //     navigate("/login");
-  //   }
-  // }, []);
-
   const setProfilePicture = async () => {
     if (selectAvatar === undefined) {
       toast.error("plz select the avatar");
@@ -50,7 +43,7 @@ const Avatar = () => {
         user.isAvatarImageSet = true;
         user.avatarImage = data.image;
         localStorage.setItem("chat-app-user", JSON.stringify(user));
-        navigate("/chat");
+        navigate("/");
       } else {
         toast.error(" error in avatar setting");
       }
