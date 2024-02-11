@@ -23,7 +23,7 @@ const ChatHeader = () => {
             <FiSearch />
           </p>
           <input
-            className="w-[90%] bg-[#FCF5ED] rounded-sm pl-2 h-[30px] flex items-center"
+            className="outline-none w-[90%] bg-[#FCF5ED] rounded-sm pl-2 h-[30px] flex items-center"
             type="text"
             placeholder="Search"
           />

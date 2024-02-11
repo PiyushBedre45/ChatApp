@@ -43,7 +43,7 @@ function ChatInput({ handleSendMsg }) {
           </button>
           <form className="w-[85%] h-[90%]" onSubmit={(e) => sendChat(e)}>
             <input
-              className="w-full h-full pl-[15px]"
+              className="w-full h-full pl-[15px] outline-none"
               type="text"
               placeholder="Enter the message here"
               value={msg}
